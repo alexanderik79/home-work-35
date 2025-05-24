@@ -1,17 +1,25 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-// ❗ Видали або вимкни аналізатор, якщо не потрібно:
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
+const isProd = process.env.NODE_ENV === 'production';
+const repoName = 'home-work-35'; // Заміни на назву свого репозиторію
+
 export default {
-  mode: 'production', // ← важливо для збірки GitHub Pages
+  mode: isProd ? 'production' : 'development',
   entry: './src/index.ts',
   output: {
     path: path.resolve('./dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.[contenthash].js',
     clean: true,
-    publicPath: '/home-work-35/', // ← обов’язково для GitHub Pages
+    // publicPath: '/',   // локально
+    publicPath: '/home-work-35/',  // для гытхабу
+  },
+  devServer: {
+    static: path.resolve('./dist'),
+    hot: true,
+    port: 8080,
   },
   module: {
     rules: [
@@ -22,16 +30,12 @@ export default {
       {
         test: /\.(woff|woff2|ttf|otf|eot)$/,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/fonts/[name][ext]',
-        },
+        generator: { filename: 'assets/fonts/[name][ext][query]' },
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/[name][ext]',
-        },
+        generator: { filename: 'assets/images/[name][ext][query]' },
       },
     ],
   },
@@ -39,13 +43,8 @@ export default {
     extensions: ['.ts', '.js'],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
     new ESLintPlugin(),
-    // Можеш вимкнути якщо не треба
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'disabled', // ← Щоб не запускалося на проді
-    }),
+    new BundleAnalyzerPlugin(),
   ],
 };

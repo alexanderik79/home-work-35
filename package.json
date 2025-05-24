@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "webpack --mode production",
+  "start": "webpack serve --mode development",
+  "build": "webpack --mode production",
     "analyze": "webpack --mode production --profile --json > stats.json && webpack-bundle-analyzer stats.json",
     "lint": "eslint src"
   },

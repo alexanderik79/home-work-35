@@ -3,14 +3,14 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-export default {
-  mode: 'development',
+export default (env, argv) => ({
+  mode: argv.mode || 'development',
   entry: './src/index.ts',
   output: {
     path: path.resolve('./dist'),
     filename: 'bundle.js',
     clean: true,
-    publicPath: '/home-work-35/', // 🔁 <-- Додай назву репозиторію
+    publicPath: '/home-work-35/', 
   },
   devServer: {
     static: path.resolve('./dist'),
@@ -39,8 +39,11 @@ export default {
     extensions: ['.ts', '.js'],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      inject: 'body', // вставляє <script> перед </body>
+    }),
     new ESLintPlugin(),
-    new BundleAnalyzerPlugin(),
+    ...(argv.mode === 'production' ? [new BundleAnalyzerPlugin()] : []),
   ],
-};
+});

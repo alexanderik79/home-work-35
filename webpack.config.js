@@ -14,7 +14,7 @@ export default {
     filename: 'bundle.[contenthash].js',
     clean: true,
     // publicPath: '/',   // локально
-    publicPath: '/home-work-35/',  // для гытхабу
+    publicPath: '/home-work-35/dist/',  // для гытхабу
   },
   devServer: {
     static: path.resolve('./dist'),

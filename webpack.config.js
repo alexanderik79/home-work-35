@@ -1,21 +1,17 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
+// ❗ Видали або вимкни аналізатор, якщо не потрібно:
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-export default (env, argv) => ({
-  mode: argv.mode || 'development',
+export default {
+  mode: 'production', // ← важливо для збірки GitHub Pages
   entry: './src/index.ts',
   output: {
     path: path.resolve('./dist'),
     filename: 'bundle.js',
     clean: true,
-    publicPath: '/home-work-35/', 
-  },
-  devServer: {
-    static: path.resolve('./dist'),
-    hot: true,
-    port: 8080,
+    publicPath: '/home-work-35/', // ← обов’язково для GitHub Pages
   },
   module: {
     rules: [
@@ -26,12 +22,16 @@ export default (env, argv) => ({
       {
         test: /\.(woff|woff2|ttf|otf|eot)$/,
         type: 'asset/resource',
-        generator: { filename: 'assets/fonts/[name][ext][query]' },
+        generator: {
+          filename: 'assets/fonts/[name][ext]',
+        },
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource',
-        generator: { filename: 'assets/images/[name][ext][query]' },
+        generator: {
+          filename: 'assets/images/[name][ext]',
+        },
       },
     ],
   },
@@ -41,9 +41,11 @@ export default (env, argv) => ({
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      inject: 'body', // вставляє <script> перед </body>
     }),
     new ESLintPlugin(),
-    ...(argv.mode === 'production' ? [new BundleAnalyzerPlugin()] : []),
+    // Можеш вимкнути якщо не треба
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled', // ← Щоб не запускалося на проді
+    }),
   ],
-});
+};

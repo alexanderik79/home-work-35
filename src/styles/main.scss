@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eef2f7; // чуть светлее фон
+  color: #2c3e50;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+
+  h1 {
+    color: #1976d2;
+    text-align: center;
+    margin: 3rem 0 1.5rem 0;
+    font-weight: 700;
+    font-size: 2.8rem;
+    text-shadow: 1px 1px 3px rgba(25, 118, 210, 0.3);
+  }
+
+  img {
+    max-width: 400px;
+    width: 90vw;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  #car-description {
+    max-width: 400px;
+    width: 90vw;
+    margin: 1rem 0 2rem 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #34495e;
+    text-align: center;
+    line-height: 1.5;
+    background: #ffffffcc; // полупрозрачный светлый фон
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  button {
+    padding: 0.6rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #1976d2;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      background-color: #155a9c;
+      box-shadow: 0 6px 16px rgba(21, 90, 156, 0.6);
+    }
+
+    &:active {
+      background-color: #0f406c;
+      box-shadow: 0 2px 8px rgba(15, 64, 108, 0.7);
+      transform: translateY(1px);
+    }
+  }
+}

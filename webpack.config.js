@@ -5,11 +5,12 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 export default {
   mode: 'development',
-  entry: './src/index.ts',  // <- ОБОВ'ЯЗКОВО TypeScript файл
+  entry: './src/index.ts',
   output: {
     path: path.resolve('./dist'),
     filename: 'bundle.js',
     clean: true,
+    publicPath: '/home-work-35/', // 🔁 <-- Додай назву репозиторію
   },
   devServer: {
     static: path.resolve('./dist'),
@@ -21,7 +22,7 @@ export default {
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
-      { test: /\.ts$/, use: 'ts-loader', exclude: /node_modules/ },  // TypeScript
+      { test: /\.ts$/, use: 'ts-loader', exclude: /node_modules/ },
       {
         test: /\.(woff|woff2|ttf|otf|eot)$/,
         type: 'asset/resource',
@@ -35,7 +36,7 @@ export default {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'], // Для розпізнавання імпортів без розширення
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' }),

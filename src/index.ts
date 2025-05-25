@@ -1,3 +1,5 @@
+//index.ts
+
 import './styles/main.scss';
 import './styles/variables.less';
 import { initDeckSlider } from './deckSlider';

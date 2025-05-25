@@ -1,3 +1,5 @@
+// src/deckSlider.ts
+
 export function initDeckSlider() {
   const deck = document.getElementById('deck');
   if (!deck) return;
@@ -9,9 +11,12 @@ export function initDeckSlider() {
 
     const topCard = cards.shift()!;
 
-    // Получаем текущий поворот, чтобы сделать "уход" более естественным
+    // Получаем текущий поворот
     const currentRotation = getRotationFromTransform(topCard.style.transform);
     const exitRotation = currentRotation + 20;
+
+    // Блокируем hover-эффект
+    topCard.classList.add('no-hover');
 
     topCard.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
     topCard.style.transform = `translateX(400px) rotate(${exitRotation}deg)`;
@@ -24,14 +29,17 @@ export function initDeckSlider() {
       topCard.style.transition = 'none';
       topCard.style.opacity = '1';
 
-      // Возвращаем в конец
+      // Удаляем блокировку hover
+      topCard.classList.remove('no-hover');
+
+      // Возвращаем карточку в конец колоды
       deck.appendChild(topCard);
       cards.push(topCard);
 
-      // Обновляем все стили карт
+      // Обновляем стили всех карточек
       cards.forEach((card, i) => {
         const offset = i * 10;
-        const rotation = (card === topCard) ? newRotation : getRotationFromTransform(card.style.transform);
+        const rotation = card === topCard ? newRotation : getRotationFromTransform(card.style.transform);
         card.style.zIndex = (cards.length - i).toString();
         card.style.transform = `translate(${offset}px, ${offset}px) rotate(${rotation}deg)`;
       });

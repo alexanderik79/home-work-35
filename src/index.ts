@@ -7,12 +7,14 @@ import { initDeckSlider } from './deckSlider';
 import carImage from './assets/images/car.jpg';
 import carImage2 from './assets/images/car2.jpg';
 import carImage3 from './assets/images/car3.jpg';
+import carImage4 from './assets/images/car4.jpg';
+import carImage5 from './assets/images/car5.jpg';
 
 // Получаем контейнер для карточек
 const deck = document.getElementById('deck') as HTMLElement;
 
 // Массив картинок для слайдера
-const images = [carImage, carImage2, carImage3];
+const images = [carImage, carImage2, carImage3, carImage4, carImage5];
 
 // Массив случайных углов для каждой карточки
 const randomRotations: number[] = images.map(() => Math.random() * 20 - 10);

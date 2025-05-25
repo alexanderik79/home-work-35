@@ -13,7 +13,7 @@ export function initDeckSlider() {
 
     // Получаем текущий поворот
     const currentRotation = getRotationFromTransform(topCard.style.transform);
-    const exitRotation = currentRotation + 20;
+    const exitRotation = currentRotation + 30;
 
     // Блокируем hover-эффект
     topCard.classList.add('no-hover');
